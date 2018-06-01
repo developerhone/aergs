@@ -1,65 +1,195 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html ng-app="honeApp">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-database.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+</head>
+<script>
+angular.module('honeApp', ['ngMaterial'])
+    .config(function($mdThemingProvider, $httpProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            .accentPalette('orange');
+    })
+    .controller('HoneController', function($http) {
+        var hone = this;
+
+        hone.selectedIndex = 0;
+        hone.alert = null;
+    });
+
+function fMasc(objeto,mascara) {
+    obj=objeto
+    masc=mascara
+    setTimeout("fMascEx()",1)
+}
+
+function fMascEx() {
+    obj.value=masc(obj.value)
+}
+
+function mCPF(cpf){
+    cpf=cpf.replace(/\D/g,"")
+    cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+    cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+    cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+    return cpf
+}
+
+</script>
+<style>
+.div-form input {
+    width: 100%;
+}
+
+.div-form div {
+    margin: 10px 0;
+}
+
+.alertMsg {
+    color: red;
+}
+
+md-input-container {
+    margin: 0 5px !important;
+    padding: 0 !important;
+}
+
+md-content {
+    background-color: #FFFFFF !important;
+}
+
+.md-subheader {
+    background-color: #FFFFFF !important;
+}
+
+body {
+    background-color: #FFFFFF !important;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+</style>
+
+<body>
+
+    <div ng-controller="HoneController as hone" style="margin: 0 30%;">
+
+        <md-content flex layout-padding >
+
+            <div style="text-align: center;"><img alt="Hone" height="51" src="https://hone.com.br/wp-content/uploads/2017/10/big-logo.png" width="180" /></div>
+
+            <md-tabs md-dynamic-height md-border-bottom md-center-tabs md-selected="hone.selectedIndex" md-autoselect>
+
+                <md-tab label="Cadastro">
+
+                    <form name="honeForm" ng-submit="hone.subscribersSave(userForm.$valid, honeForm)" novalidate ng-if="hone.selectedIndex === 0" >
+
+                        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="hone.isLoading">
+                            <md-progress-linear md-mode="indeterminate" ></md-progress-linear>
+                        </div>
+
+                        <md-content layout-padding layout="row" ng-cloak class="md-inline-form" style="padding-top: 30px;">
+
+                            <md-input-container flex="50">
+                                <label>Nome</label>
+                                <input maxlength="50" minlength="3" required name="name" ng-model="hone.subscriber.name" >
+                                <div ng-messages="honeForm.name.$error" role="alert" ng-show="honeForm.name.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 50 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>RG</label>
+                                <input maxlength="50" minlength="3" required name="rg" ng-model="hone.subscriber.rg" >
+                                <div ng-messages="honeForm.rg.$error" role="alert" ng-show="honeForm.rg.$dirty">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                        Seu RG é campo obrigatório.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Email</label>
+                                <input required type="email" name="email" ng-model="hone.subscriber.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+                                <div ng-messages="honeForm.email.$error" role="alert" ng-show="honeForm.email.$dirty">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                        Seu e-mail deve ter entre 10 e 100 caracteres e parecer um endereço de e-mail.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>CPF</label>
+                                <input maxlength="14" required name="individualIdentificationCode" ng-model="hone.subscriber.individualIdentificationCode" onkeydown="javascript: fMasc( this, mCPF );">
+                                <div ng-messages="honeForm.individualIdentificationCode.$error" role="alert" ng-show="honeForm.individualIdentificationCode.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu CPF é campo obrigatório.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                        </md-content>
+                        <section layout="row" layout-sm="column" layout-align="center end" layout-wrap>
+                            <md-button class="md-raised md-primary" type="submit" ng-disabled="honeForm.$invalid">Salvar</md-button>
+                        </section>
+
+                    </form>
+                </md-tab>
+
+            </md-tabs>
+
+        </md-content>
+
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+</body>
 </html>
