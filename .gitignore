@@ -1,0 +1,17 @@
+
+# Logs
+logs/
+npm-debug.log.*
+
+# Dependency directory
+functions/node_modules/
+
+# Mac files
+.DS_Store
+
+# VS Code
+typings/
+typings.json
+jsconfig.json
+.history/
+*.swp
