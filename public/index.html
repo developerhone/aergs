@@ -28,6 +28,8 @@ angular.module('honeApp', ['ngMaterial'])
 
         hone.selectedIndex = 0;
         hone.alert = null;
+
+        // hone.cadastrosSave()
     });
 
 function fMasc(objeto,mascara) {
@@ -122,36 +124,129 @@ body {
 
 <body>
 
-    <div ng-controller="HoneController as hone" style="margin: 0 30%;">
+    <div ng-controller="HoneController as hone" style="margin: 0 20%;">
 
         <md-content flex layout-padding >
 
             <div style="text-align: center;"><img alt="Hone" height="51" src="https://hone.com.br/wp-content/uploads/2017/10/big-logo.png" width="180" /></div>
 
-            <md-tabs md-dynamic-height md-border-bottom md-center-tabs md-selected="hone.selectedIndex" md-autoselect>
+            <form name="honeForm" ng-submit="hone.cadastrosSave(userForm.$valid, honeForm)" novalidate >
 
-                <md-tab label="Cadastro">
+                <div layout="row" layout-sm="column" layout-align="space-around" ng-if="hone.isLoading">
+                    <md-progress-linear md-mode="indeterminate" ></md-progress-linear>
+                </div>
 
-                    <form name="honeForm" ng-submit="hone.subscribersSave(userForm.$valid, honeForm)" novalidate ng-if="hone.selectedIndex === 0" >
+                <md-tabs md-dynamic-height md-border-bottom md-center-tabs md-selected="hone.selectedIndex" md-autoselect>
 
-                        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="hone.isLoading">
-                            <md-progress-linear md-mode="indeterminate" ></md-progress-linear>
-                        </div>
+                    <md-tab label="Escolaridade" ng-disabled="hone.selectedIndex !== 0">
 
-                        <md-content layout-padding layout="row" ng-cloak class="md-inline-form" style="padding-top: 30px;">
+                        <md-content layout-padding layout="column" ng-cloak class="md-inline-form" style="padding-top: 30px;">
+                        
+                            <md-input-container flex="50">
+                                <label>Escolaridade</label>
+                                <input maxlength="20" minlength="3" required name="escolaridade" ng-model="hone.cadastro.escolaridade" >
+                                <div ng-messages="honeForm.escolaridade.$error" role="alert" ng-show="honeForm.escolaridade.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Instituição de ensino</label>
+                                <input maxlength="20" minlength="3" required name="instituicaoEnsino" ng-model="hone.cadastro.instituicaoEnsino" >
+                                <div ng-messages="honeForm.instituicaoEnsino.$error" role="alert" ng-show="honeForm.instituicaoEnsino.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Curso</label>
+                                <input maxlength="20" minlength="3" required name="curso" ng-model="hone.cadastro.curso" >
+                                <div ng-messages="honeForm.curso.$error" role="alert" ng-show="honeForm.curso.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Número da Matrícula</label>
+                                <input maxlength="20" minlength="3" required name="numeroMatricula" ng-model="hone.cadastro.numeroMatricula" >
+                                <div ng-messages="honeForm.numeroMatricula.$error" role="alert" ng-show="honeForm.numeroMatricula.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Cidade onde cursa</label>
+                                <input maxlength="20" minlength="3" required name="cidadeCursa" ng-model="hone.cadastro.cidadeCursa" >
+                                <div ng-messages="honeForm.cidadeCursa.$error" role="alert" ng-show="honeForm.cidadeCursa.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>UF onde cursa</label>
+                                <input maxlength="20" minlength="3" required name="ufCursa" ng-model="hone.cadastro.ufCursa" >
+                                <div ng-messages="honeForm.ufCursa.$error" role="alert" ng-show="honeForm.ufCursa.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                        </md-content>
+                        <section layout="row" layout-sm="column" layout-align="end end" layout-wrap>
+                            <md-button class="md-raised md-primary" type="submit" ng-click="hone.selectedIndex = 1" >Avançar</md-button>
+                        </section>
+
+                    </md-tab>
+
+                    <md-tab label="Pessoa Física" ng-disabled="hone.selectedIndex !== 1">
+
+                        <md-content layout-padding layout="column" ng-cloak class="md-inline-form" style="padding-top: 30px;">
 
                             <md-input-container flex="50">
-                                <label>Nome</label>
-                                <input maxlength="50" minlength="3" required name="name" ng-model="hone.subscriber.name" >
-                                <div ng-messages="honeForm.name.$error" role="alert" ng-show="honeForm.name.$dirty">
+                                <label>Primeiro Nome</label>
+                                <input maxlength="20" minlength="3" required name="primeiroNome" ng-model="hone.cadastro.primeiroNome" >
+                                <div ng-messages="honeForm.primeiroNome.$error" role="alert" ng-show="honeForm.primeiroNome.$dirty">
                                     <div ng-message-exp="['required', 'maxlength']">
-                                        Seu nome deve ter entre 3 e 50 caracteres.
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Sobre Nome</label>
+                                <input maxlength="20" minlength="3" required name="sobreNome" ng-model="hone.cadastro.sobreNome" >
+                                <div ng-messages="honeForm.sobreNome.$error" role="alert" ng-show="honeForm.sobreNome.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Data de Nascimento</label>
+                                <input maxlength="10" required name="dataNascimento" ng-model="hone.cadastro.dataNascimento" >
+                                <div ng-messages="honeForm.dataNascimento.$error" role="alert" ng-show="honeForm.dataNascimento.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Sua data de nascimento é campo obrigatório.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Sexo</label>
+                                <input maxlength="10" required name="dataNascimento" ng-model="hone.cadastro.sexo" >
+                                <div ng-messages="honeForm.sexo.$error" role="alert" ng-show="honeForm.sexo.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Sua data de nascimento é campo obrigatório.
                                     </div>
                                 </div>
                             </md-input-container>
                             <md-input-container flex="50">
                                 <label>RG</label>
-                                <input maxlength="50" minlength="3" required name="rg" ng-model="hone.subscriber.rg" >
+                                <input maxlength="50" minlength="3" required name="rg" ng-model="hone.cadastro.rg" >
                                 <div ng-messages="honeForm.rg.$error" role="alert" ng-show="honeForm.rg.$dirty">
                                     <div ng-message-exp="['required', 'minlength', 'maxlength']">
                                         Seu RG é campo obrigatório.
@@ -159,33 +254,145 @@ body {
                                 </div>
                             </md-input-container>
                             <md-input-container flex="50">
+                                <label>CPF</label>
+                                <input maxlength="14" required name="cpf" ng-model="hone.cadastro.cpf" onkeydown="javascript: fMasc( this, mCPF );">
+                                <div ng-messages="honeForm.cpf.$error" role="alert" ng-show="honeForm.cpf.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu CPF é campo obrigatório.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
                                 <label>Email</label>
-                                <input required type="email" name="email" ng-model="hone.subscriber.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+                                <input required type="email" name="email" ng-model="hone.cadastro.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
                                 <div ng-messages="honeForm.email.$error" role="alert" ng-show="honeForm.email.$dirty">
                                     <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                                         Seu e-mail deve ter entre 10 e 100 caracteres e parecer um endereço de e-mail.
                                     </div>
                                 </div>
                             </md-input-container>
+
+                        </md-content>
+                        <md-content layout="row" >
+                            <section flex="50" layout="row" layout-sm="column" layout-align="start end" layout-wrap>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="hone.selectedIndex = 0" >Voltar</md-button>
+                            </section>
+                            <section flex="50" layout="row" layout-sm="column" layout-align="end end" layout-wrap>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="hone.selectedIndex = 2" >Avançar</md-button>
+                            </section>
+                        </md-content>
+                    
+                    </md-tab>
+
+                    <md-tab label="Endereço" ng-disabled="hone.selectedIndex !== 2" >
+
+                        <md-content layout-padding layout="column" ng-cloak class="md-inline-form" style="padding-top: 30px;">
+
                             <md-input-container flex="50">
-                                <label>CPF</label>
-                                <input maxlength="14" required name="individualIdentificationCode" ng-model="hone.subscriber.individualIdentificationCode" onkeydown="javascript: fMasc( this, mCPF );">
-                                <div ng-messages="honeForm.individualIdentificationCode.$error" role="alert" ng-show="honeForm.individualIdentificationCode.$dirty">
+                                <label>CEP</label>
+                                <input maxlength="20" minlength="3" required name="cep" ng-model="hone.cadastro.cep" >
+                                <div ng-messages="honeForm.cep.$error" role="alert" ng-show="honeForm.cpe.$dirty">
                                     <div ng-message-exp="['required', 'maxlength']">
-                                        Seu CPF é campo obrigatório.
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Cidade</label>
+                                <input maxlength="20" minlength="3" required name="cidade" ng-model="hone.cadastro.cidade" >
+                                <div ng-messages="honeForm.cidade.$error" role="alert" ng-show="honeForm.cidade.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>UF</label>
+                                <input maxlength="20" minlength="3" required name="uf" ng-model="hone.cadastro.uf" >
+                                <div ng-messages="honeForm.uf.$error" role="alert" ng-show="honeForm.uf.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Bairro</label>
+                                <input maxlength="20" minlength="3" required name="primeiroNome" ng-model="hone.cadastro.bairro" >
+                                <div ng-messages="honeForm.bairro.$error" role="alert" ng-show="honeForm.bairro.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Rua</label>
+                                <input maxlength="20" minlength="3" required name="rua" ng-model="hone.cadastro.rua" >
+                                <div ng-messages="honeForm.rua.$error" role="alert" ng-show="honeForm.rua.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Número</label>
+                                <input maxlength="20" minlength="3" required name="primeiroNome" ng-model="hone.cadastro.numero" >
+                                <div ng-messages="honeForm.numero.$error" role="alert" ng-show="honeForm.numero.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Complemento</label>
+                                <input maxlength="20" minlength="3" required name="complemento" ng-model="hone.cadastro.complemento" >
+                                <div ng-messages="honeForm.complemento.$error" role="alert" ng-show="honeForm.complemento.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
                                     </div>
                                 </div>
                             </md-input-container>
 
                         </md-content>
-                        <section layout="row" layout-sm="column" layout-align="center end" layout-wrap>
-                            <md-button class="md-raised md-primary" type="submit" ng-disabled="honeForm.$invalid">Salvar</md-button>
-                        </section>
+                        <md-content layout="row" >
+                            <section flex="50" layout="row" layout-sm="column" layout-align="start end" layout-wrap>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="hone.selectedIndex = 1" >Voltar</md-button>
+                            </section>
+                            <section flex="50" layout="row" layout-sm="column" layout-align="end end" layout-wrap>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="hone.selectedIndex = 3" >Avançar</md-button>
+                            </section>
+                        </md-content>
 
-                    </form>
-                </md-tab>
+                    </md-tab>
 
-            </md-tabs>
+                    <md-tab label="Pagamento" ng-disabled="hone.selectedIndex !== 3" >
+
+                        <md-content layout-padding layout="column" ng-cloak class="md-inline-form" style="padding-top: 30px;">
+
+                            <md-input-container flex="50">
+                                <label>Tipo pagamento</label>
+                                <input maxlength="20" minlength="3" required name="tipoPagamento" ng-model="hone.cadastro.tipoPagamento" >
+                                <div ng-messages="honeForm.tipoPagamento.$error" role="alert" ng-show="honeForm.tipoPagamento.$dirty">
+                                    <div ng-message-exp="['required', 'maxlength']">
+                                        Seu nome deve ter entre 3 e 20 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                        </md-content>
+                        <md-content layout="row" >
+                            <section flex="50" layout="row" layout-sm="column" layout-align="start end" layout-wrap>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="hone.selectedIndex = 2" >Voltar</md-button>
+                            </section>
+                            <section flex="50" layout="row" layout-sm="column" layout-align="end end" layout-wrap>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="" >Finalizar</md-button>
+                            </section>
+                        </md-content>
+
+                    </md-tab>
+
+                </md-tabs>
+
+            </form>
 
         </md-content>
 
